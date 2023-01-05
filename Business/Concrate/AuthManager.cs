@@ -10,7 +10,7 @@ using Core.Utilities.Security.Hashing;
 using Business.Constans;
 
 namespace Business.Concrate
-{
+{//
     public class AuthManager : IAuthService
     {
         private IUserService _userService;
@@ -52,7 +52,7 @@ namespace Business.Concrate
                 return new ErrorDataResult<User>(Messages.PasswordError);
             }
 
-            return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
+            return new SuccessDataResult<User>(userToCheck,"başarılı giriş");
         }
 
         public IResult UserExists(string email)

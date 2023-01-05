@@ -30,7 +30,7 @@ namespace Business.Concrate
 
         IDataResult<List<Category>> ICategoryService.GetAll()
         {
-            throw new NotImplementedException();
+            return new SuccessDataResult<List<Category>>(_categoryDal.GetAll());
         }
 
         IDataResult<Category> ICategoryService.GetById(int CategoryId)

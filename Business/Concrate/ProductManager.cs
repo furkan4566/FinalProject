@@ -3,7 +3,11 @@ using Business.BusinessAspect.Autofac;
 using Business.CCS;
 using Business.Constans;
 using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -22,18 +26,25 @@ namespace Business.Concrate
     {
         IProductDal _productDal;
         ICategoryService _categoryService;
+
         //Conscrate injection=productManager ı,IProductDal a gevşek bagımlılık kıldık
+        //Validation ve Business kodları farklı,validation dogrulama için kullanılır
+        //Validation=nesnenin yapısal olarak dogru olup olmadıgını dogrulamya validation denir.örnek min kaç karakter olabilir(formdaki kırmızı uyarılar)
+        //Business=yapıların uyumlu olup olmadıgı business le alakalı
         public ProductManager(IProductDal productDal, ICategoryService categoryService)//Kullanıcıdan productDal alınan yer.//entitymanager kendisinden başka entity enjekte edemez
         {
             _productDal = productDal;
             _categoryService = categoryService;
         }
-        [SecuredOperation("product.add,admin")]
+        [SecuredOperation("admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
-            var result = BusinessRules.Run(CheckIfProductCountOfCategoryCorrect(product.CategoryId),
-             ChakeIfSameNotName(product.ProductName), CheckIfCategoryLimitExceded());
+            var result = BusinessRules.Run(
+             ChakeIfSameNotName(product.ProductName),
+             CheckIfProductCountOfCategoryCorrect(product.CategoryId),
+             CheckIfCategoryLimitExceded()
+             );
 
             if (result != null)
             {
@@ -42,20 +53,21 @@ namespace Business.Concrate
             _productDal.Add(product);
 
             return new SuccessResult(Messages.ProductAdded);
-        }
-
+        } 
+        [CacheAspect] //KEY,VALUE
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 17)
+            if (DateTime.Now.Hour == 1)
             {
                 return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
             }
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
         }
-
+        //[CacheAspect]
+        //[PerformanceAspect(5)]
         public IDataResult<Product> GetById(int productId)
         {
-            return new SuccessDataResult<Product>(_productDal.Get(c => c.ProductId == productId));
+            return new SuccessDataResult<Product>(_productDal.Get(c => c.ProductId == productId),Messages.AccessTokenCreated);
         }
 
         public IDataResult<List<Product>> GetByUnitPrice(decimal min, decimal max)
@@ -73,17 +85,19 @@ namespace Business.Concrate
 
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
-        [ValidationAspect(typeof(ProductValidator))]
+        //[ValidationAspect(typeof(ProductValidator))]
+        //[CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
         {
-
-            throw new NotImplementedException();
+            _productDal.Update(product);
+            return new SuccessResult("işlem başarılı");
         }
 
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
         {
+             
             var result = _productDal.GetAll(p => p.CategoryId == categoryId).Count;
-            if (result >= 15)
+            if (result >=500)
             {
                 return new ErrorResult(Messages.ProductCountofCategoryError);
             }
@@ -107,6 +121,17 @@ namespace Business.Concrate
                 return new ErrorResult(Messages.CategoryLimitExceded);
             }
             return new SuccessResult();
+        }
+        [TransactionScopeAspect]
+        public IResult AddTransactionTest(Product product)
+        {
+            Add(product);
+            if(product.UnitPrice<10)
+            {
+                throw new Exception("dfs");
+            }
+            Add(product);
+            return null;
         }
     }
 }
