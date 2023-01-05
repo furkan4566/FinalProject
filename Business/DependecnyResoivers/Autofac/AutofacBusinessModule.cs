@@ -17,7 +17,9 @@ namespace Business.DependecnyResoivers.Autofac
 {
     public class AutofacBusinessModule:Module
     {
-        protected override void Load(ContainerBuilder builder)
+        //SingleInstance 1 kere ınstance referans no üretir ve herkes e verir.
+        //projeye autofac i tanıtman gerekiyor(program.cs)
+        protected override void Load(ContainerBuilder builder)//proje çalıştıgı zaman harekte geçen fonksiyon
         {
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
@@ -30,8 +32,6 @@ namespace Business.DependecnyResoivers.Autofac
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
-
-             builder.RegisterType<HttpContextAccessor>().As<IHttpContextAccessor>();
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

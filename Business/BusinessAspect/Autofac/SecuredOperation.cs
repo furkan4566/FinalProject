@@ -11,7 +11,7 @@ using Business.Constans;
 
 namespace Business.BusinessAspect.Autofac
 {
-    //JWT İÇİN
+    //JWT İÇİN KULLANILIR
     public class SecuredOperation : MethodInterception
     {
         private string[] _roles;
@@ -19,22 +19,22 @@ namespace Business.BusinessAspect.Autofac
 
         public SecuredOperation(string roles)
         {
-            _roles = roles.Split(',');
+            _roles = roles.Split(',');//gelen rolleri parçalara ayır array at
             _httpContextAccessor = ServiceTool.ServiceProvider.GetService<IHttpContextAccessor>();
 
         }
 
-        protected override void OnBefore(IInvocation invocation)
+        protected override void OnBefore(IInvocation invocation)//metotdan önce çalıştır
         {
-            var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();
+            var roleClaims = _httpContextAccessor.HttpContext.User.ClaimRoles();//o an kullanıcın rollerini bul
             foreach (var role in _roles)
             {
-                if (roleClaims.Contains(role))
+                if (roleClaims.Contains(role))//claim içinde _roles varsa dön
                 {
-                    return;
+                    return; 
                 }
             }
-            throw new Exception(Messages.AuthorizationDenied);
+            throw new Exception(Messages.AuthorizationDenied);//hata ver
         }
     }
 }

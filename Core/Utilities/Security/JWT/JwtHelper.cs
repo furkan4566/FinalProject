@@ -14,21 +14,21 @@ namespace Core.Utilities.Security.JWT
 {
     public class JwtHelper : ITokenHelper
     {
-        public IConfiguration Configuration { get; }
-        private TokenOptions _tokenOptions;
-        private DateTime _accessTokenExpiration;
+        public IConfiguration Configuration { get; }//api deki appseting.json dosyasını okur
+        private TokenOptions _tokenOptions;//appseting.json daki tokeopstions temsil eder.
+        private DateTime _accessTokenExpiration;//accesstoken ne zman geçersiz olucak
         public JwtHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();//appsetting'deki tokenoptions bölümünü al ona tokenoptions'u enjekte et
 
         }
         public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
         {
-            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
-            var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
-            var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
-            var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);
+            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);//token zamanının ne zman biticeğini ayarlar
+            var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);//securitykey oluşturmaya saglar
+            var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);//kullanıcagı anahtarı ve algoritmayı söyler
+            var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);//4 parametreye göre token oluşturur
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
@@ -56,11 +56,12 @@ namespace Core.Utilities.Security.JWT
 
         private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
         {
+
             var claims = new List<Claim>();
-            claims.AddNameIdentifier(user.Id.ToString());
+            claims.AddNameIdentifier(user.Id.ToString());//kulanıcıın ıd
             claims.AddEmail(user.Email);
-            claims.AddName($"{user.FirstName} {user.LastName}");
-            claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
+            claims.AddName($"{user.FirstName} {user.LastName}");//kullanıcın adı soyadı
+            claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());//rollerini seçip ekler
 
             return claims;
         }

@@ -5,15 +5,15 @@ using System.Security.Claims;
 using System.Text;
 
 namespace Core.Extensions
-{
+{//kullanıcın sisteme geldigin an claimlerine ulaşmak için kullanılan yapıdır.
     public static class ClaimsPrincipalExtensions
     {
         public static List<string> Claims(this ClaimsPrincipal claimsPrincipal, string claimType)
         {
-            var result = claimsPrincipal?.FindAll(claimType)?.Select(x => x.Value).ToList();
+            var result = claimsPrincipal?.FindAll(claimType)?.Select(x => x.Value).ToList();//? null olabilir anlamına gelir
             return result;
         }
-
+        //sadece rolleri döndürmeye yarar 
         public static List<string> ClaimRoles(this ClaimsPrincipal claimsPrincipal)
         {
             return claimsPrincipal?.Claims(ClaimTypes.Role);
