@@ -30,6 +30,15 @@ namespace Business.DependecnyResoivers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>();
             builder.RegisterType<EfUserDal>().As<IUserDal>();
 
+            builder.RegisterType<ContactManager>().As<IContactService>();
+            builder.RegisterType<EfContactDal>().As<IContactDal>();
+
+            builder.RegisterType<SideCategoryManager>().As<ISideCategoryService>();
+            builder.RegisterType<EfSideCategoryDal>().As<ISideCategoryDal>();
+
+            builder.RegisterType<CommentManager>().As<ICommentService>();
+            builder.RegisterType<EfCommentDal>().As<ICommentDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 

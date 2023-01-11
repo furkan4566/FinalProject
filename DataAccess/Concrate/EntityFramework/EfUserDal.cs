@@ -23,5 +23,7 @@ namespace DataAccess.Concrate.EntityFramework
 
             }
         }
+
+
     }
 }

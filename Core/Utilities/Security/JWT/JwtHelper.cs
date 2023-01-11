@@ -12,6 +12,7 @@ using System.Text;
 
 namespace Core.Utilities.Security.JWT
 {
+    //token decrypt etmek ve içinden bilgilere ulaşmak
     public class JwtHelper : ITokenHelper
     {
         public IConfiguration Configuration { get; }//api deki appseting.json dosyasını okur
@@ -53,17 +54,17 @@ namespace Core.Utilities.Security.JWT
             );
             return jwt;
         }
+            private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
+            {
 
-        private IEnumerable<Claim> SetClaims(User user, List<OperationClaim> operationClaims)
-        {
+                var claims = new List<Claim>();
+                claims.AddNameIdentifier(user.Id.ToString());//kulanıcıın ıd
+                claims.AddEmail(user.Email);
+                claims.AddName($"{user.FirstName} {user.LastName}");//kullanıcın adı soyadı
+                claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());//rollerini seçip ekler
 
-            var claims = new List<Claim>();
-            claims.AddNameIdentifier(user.Id.ToString());//kulanıcıın ıd
-            claims.AddEmail(user.Email);
-            claims.AddName($"{user.FirstName} {user.LastName}");//kullanıcın adı soyadı
-            claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());//rollerini seçip ekler
-
-            return claims;
-        }
+                return claims;
+            }
+        
     }
 }

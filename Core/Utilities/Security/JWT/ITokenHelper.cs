@@ -9,5 +9,8 @@ namespace Core.Utilities.Security.JWT
     {//kulanıcının verdigi bilgileri api bilgiler dogru ise veritabanına gidip claimleri buluşturup bir token
      //oluşturcak ve kullanıcıya vericek
         AccessToken CreateToken(User user, List<OperationClaim> operationClaims);
+
+
+
     }
 }
