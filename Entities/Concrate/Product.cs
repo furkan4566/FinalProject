@@ -14,6 +14,7 @@ namespace Entities.Concrate
         public int Reviews { get; set; }
         public short UnitsInStock { get; set; }
         public decimal UnitPrice { get; set; }
+        public int SellCount{ get; set; }
 
     }
 }

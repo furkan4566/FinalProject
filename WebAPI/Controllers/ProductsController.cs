@@ -65,20 +65,55 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("update")]
-        public IActionResult Update(Product product)
+        public IActionResult Update(int id,Product product)
         {
-
-            var result = _productService.Update(product);
+            var refResult = _productService.GetById(id);
+            refResult.Data.ProductName = product.ProductName;
+            refResult.Data.QuantityPerUnit = product.QuantityPerUnit;
+            refResult.Data.Reviews = product.Reviews;
+            refResult.Data.UnitPrice = product.UnitPrice;
+            refResult.Data.UnitsInStock = product.UnitsInStock;
+            var result = _productService.Update(refResult.Data);
+            if (refResult.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpDelete("delete")]
+        public IActionResult Delete(int id)
+        {
+            var result = _productService.Delete(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Massage);
+        }
+        [HttpPost("addTransaction")]
+        public IActionResult AddTransactionTest(Product product)
+        {
+            var result = _productService.AddTransactionTest(product);
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpPost("addTransaction")]
-        public IActionResult AddTransactionTest(Product product)
+        [HttpGet("getpopcategoryfirst")]
+        public IActionResult GetPopCategoryFirstTen(int categoryId)
         {
-            var result = _productService.AddTransactionTest(product);
+            var result = _productService.GetPopCategoryFirstTen(categoryId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getpopulerproducts")]
+        public IActionResult GetPopulerProducts(int categoryId)
+        {
+            var result = _productService.GetPopulerProducts();
             if (result.Success)
             {
                 return Ok(result);

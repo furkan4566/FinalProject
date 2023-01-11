@@ -21,7 +21,7 @@ using System.Linq;
 using System.Text;
 
 namespace Business.Concrate
-{//2,55
+{
     public class ProductManager : IProductService
     {
         IProductDal _productDal;
@@ -36,7 +36,7 @@ namespace Business.Concrate
             _productDal = productDal;
             _categoryService = categoryService;
         }
-        [SecuredOperation("admin")]
+        //[SecuredOperation("admin")]
         [ValidationAspect(typeof(ProductValidator))]
         public IResult Add(Product product)
         {
@@ -85,6 +85,16 @@ namespace Business.Concrate
 
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
+        public IDataResult<List<Product>> GetPopCategoryFirstTen(int categoryId)
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetPopCategoryFirstTen(categoryId));
+        }
+
+        public IDataResult<List<Product>> GetPopulerProducts()
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetPopulerProducts());
+        }
+
         //[ValidationAspect(typeof(ProductValidator))]
         //[CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
@@ -92,7 +102,11 @@ namespace Business.Concrate
             _productDal.Update(product);
             return new SuccessResult("işlem başarılı");
         }
-
+        public IResult Delete(int productId)
+        {
+            _productDal.Delete(productId);
+            return new SuccessResult("işlem başarılı");
+        }
         private IResult CheckIfProductCountOfCategoryCorrect(int categoryId)
         {
              
