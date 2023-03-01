@@ -28,15 +28,5 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getsidecategory")]
-        public IActionResult GetSideCategory()
-        {
-            var result = _categoryService.GetAll();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-            return BadRequest(result);
-        }
     }
 }

@@ -8,5 +8,6 @@ namespace DataAccess.Abstract
 {
     public interface ICommentDal:IEntityRepository<Comment>
     {
+        public List<Comment> GetProductComment(int productId);
     }
 }

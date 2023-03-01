@@ -23,12 +23,12 @@ namespace Core.DataAccess.EntityFramework
             }
         }
 
-        public void Delete(int productId)
+        public void Delete(int entityId)
         {
             using (TContext context = new TContext())
             {
                 //çalışıyor
-                var entity = context.Set<TEntity>().Find(productId);
+                var entity = context.Set<TEntity>().Find(entityId);
                 context.Set<TEntity>().Remove(entity);
                 context.SaveChanges();
             }

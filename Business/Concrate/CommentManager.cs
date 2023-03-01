@@ -17,6 +17,7 @@ namespace Business.Concrate
         }
         public IResult Add(Comment comment)
         {
+            comment.DateTime = DateTime.Now;
             _commentDal.Add(comment);
             return new SuccessResult();
         }
@@ -34,6 +35,16 @@ namespace Business.Concrate
         public IDataResult<Comment> GetById(int commentId)
         {
             return new SuccessDataResult<Comment>(_commentDal.Get(s=>s.Id==commentId));
+        }
+
+        public IDataResult<List<Comment>> GetProductComment(int productId)
+        {
+            return new SuccessDataResult<List<Comment>>(_commentDal.GetProductComment(productId));
+        }
+
+        public IDataResult<List<Comment>> GetUserComment(int userId)
+        {
+            return new SuccessDataResult<List<Comment>>(_commentDal.GetAll(i => i.UserId == userId));
         }
 
         public IResult Update(Comment comment)

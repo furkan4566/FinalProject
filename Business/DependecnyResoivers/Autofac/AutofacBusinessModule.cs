@@ -39,8 +39,40 @@ namespace Business.DependecnyResoivers.Autofac
             builder.RegisterType<CommentManager>().As<ICommentService>();
             builder.RegisterType<EfCommentDal>().As<ICommentDal>();
 
+            builder.RegisterType<EmployeeManager>().As<IEmployeeService>();
+            builder.RegisterType<EfEmployeeDal>().As<IEmployeeDal>();
+
+            builder.RegisterType<OrderDetailsManager>().As<IOrderDetailsService>();
+            builder.RegisterType<EfOrderDetailsDal>().As<IOrderDetailsDal>();
+
+            builder.RegisterType<ProductImageManager>().As<IProductImageService>();
+            builder.RegisterType<EfProductImageDal>().As<IProductImgDal>();
+
+            builder.RegisterType<UserOperationClaimManager>().As<IUserOperationClaimService>();
+            builder.RegisterType<EfUserOperationClaimDal>().As<IUserOperationClaimDal>();
+
+            builder.RegisterType<BasketManager>().As<IBasketService>();
+            builder.RegisterType<EfBasketDal>().As<IBasketDal>();
+
+            builder.RegisterType<UnderCategoryManager>().As<IUnderCategoryService>();
+            builder.RegisterType<EfUnderCategoryDal>().As<IUnderCategoryDal>();
+
+            builder.RegisterType<CategoryBrandManager>().As<ICategoryBrandService>();
+            builder.RegisterType<EfCategoryBrandDal>().As<ICategoryBrandDal>();
+
+            builder.RegisterType<BrandManager>().As<IBrandService>();
+            builder.RegisterType<EfBrandDal>().As<IBrandDal>();
+
+
+            builder.RegisterType<EfCityDal>().As<ICityDal>();
+            builder.RegisterType<CityManager>().As<ICityService>();
+            builder.RegisterType<EfDistrictDal>().As<IDistrictDal>();
+            builder.RegisterType<DistrictManager>().As<IDistrictService>();
+            builder.RegisterType<EfFavoriteDal>().As<IFavoriteDal>();
+
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
+
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 

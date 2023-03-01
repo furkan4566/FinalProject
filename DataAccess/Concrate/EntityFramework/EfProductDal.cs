@@ -11,24 +11,20 @@ namespace DataAccess.Concrate.EntityFramework
 {
     public class EfProductDal : EfEntityRepositoryBase<Product, NorthwindContext>, IProductDal
     {
-        public List<Product> GetPopCategoryFirstTen(int categoryId)
-        {
-            using (var context=new NorthwindContext())
-            {
-
-                var result = from p in context.Products
-                             where p.CategoryId == categoryId
-                             select p;
-                return result.ToList();
-            }
-        }
-
-        public List<Product> GetPopulerProducts()
+        public List<Product> GetPopProductFirstTen()
         {
             using (var context=new NorthwindContext())
             {
                 var result = context.Products.OrderByDescending(i => i.SellCount).Take(10);
                 return result.ToList();
+            }
+        }
+
+        public Product GetCategoryInPopulerProduct(int categoryId)
+        {
+            using (var context=new NorthwindContext())
+            {
+                return context.Products.Where(i => i.CategoryId == categoryId).OrderByDescending(s => s.SellCount).FirstOrDefault();
             }
         }
 

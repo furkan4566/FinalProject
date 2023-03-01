@@ -11,9 +11,11 @@ namespace Business.Concrate
     public class SideCategoryManager : ISideCategoryService
     {
         ISideCategoryDal _sideCategoryDal;
-        public SideCategoryManager(ISideCategoryDal sideCategoryDal)
+        IProductService _productService;
+        public SideCategoryManager(ISideCategoryDal sideCategoryDal,IProductService productService)
         {
             _sideCategoryDal = sideCategoryDal;
+            _productService = productService;
         }
         public IResult Add(SideCategory sideCategory)
         {
@@ -39,7 +41,6 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<List<SideCategory>>(_sideCategoryDal.GetSideCategory(categoryId));
         }
-
         public IResult Update(SideCategory sideCategory)
         {
             throw new NotImplementedException();

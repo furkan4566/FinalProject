@@ -57,10 +57,10 @@ namespace Business.Concrate
         [CacheAspect] //KEY,VALUE
         public IDataResult<List<Product>> GetAll()
         {
-            if (DateTime.Now.Hour == 1)
-            {
-                return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
-            }
+            //if (DateTime.Now.Hour == 5)
+            //{
+            //    return new ErrorDataResult<List<Product>>(Messages.MaintenanceTime);
+            //}
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(), Messages.ProductListed);
         }
         //[CacheAspect]
@@ -85,16 +85,14 @@ namespace Business.Concrate
 
             return new SuccessDataResult<List<Product>>(_productDal.GetAll(p => p.CategoryId == id));
         }
-        public IDataResult<List<Product>> GetPopCategoryFirstTen(int categoryId)
+        public IDataResult<List<Product>> GetPopProductFirstTen()
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetPopCategoryFirstTen(categoryId));
+            return new SuccessDataResult<List<Product>>(_productDal.GetPopProductFirstTen());
         }
-
-        public IDataResult<List<Product>> GetPopulerProducts()
+        public IDataResult<Product> GetCategoryInPopulerProduct(int categoryId)
         {
-            return new SuccessDataResult<List<Product>>(_productDal.GetPopulerProducts());
+            return new SuccessDataResult<Product>(_productDal.GetCategoryInPopulerProduct(categoryId));
         }
-
         //[ValidationAspect(typeof(ProductValidator))]
         //[CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)
@@ -146,6 +144,18 @@ namespace Business.Concrate
             }
             Add(product);
             return null;
+        }
+
+        public IDataResult<List<Product>> GetSideCategoryForProduct(int categoryId, int sideCategoryId)
+        {
+            var productCategory = _productDal.GetAll(p => p.CategoryId == categoryId);
+            var productSideCategory = _productDal.GetAll(p => p.SideCategoryId == sideCategoryId);
+            List<Product> commonProducts = new List<Product>();
+            if (productCategory !=null)
+            {
+                commonProducts = productCategory.Intersect(productSideCategory).ToList();
+            }
+            return new SuccessDataResult<List<Product>>(commonProducts);
         }
     }
 }

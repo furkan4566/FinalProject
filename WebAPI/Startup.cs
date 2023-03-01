@@ -76,9 +76,10 @@ namespace WebAPI
              => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().WithMethods("GET", "POST", "DELETE", "PUT"));//bu adresten gelen bütün isteklere cevap ver
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
-            //4,01
+            
             app.UseAuthentication();
 
             app.UseAuthorization();
