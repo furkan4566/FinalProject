@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            Thread.Sleep(1000);
+            //Thread.Sleep(1000);
             var result =_productService.GetAll();
             if (result.Success)
             {
@@ -101,20 +101,30 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpGet("getpopcategoryfirst")]
-        public IActionResult GetPopCategoryFirstTen(int categoryId)
+        public IActionResult GetPopProductFirstTen()
         {
-            var result = _productService.GetPopCategoryFirstTen(categoryId);
+            var result = _productService.GetPopProductFirstTen();
             if (result.Success)
             {
                 return Ok(result);
             }
             return BadRequest(result);
         }
-        [HttpGet("getpopulerproducts")]
-        public IActionResult GetPopulerProducts(int categoryId)
+        [HttpGet("getsidecategoryforproduct")]
+        public IActionResult GetSideCategoryForProduct(int categoryId, int sideCategoryId)
         {
-            var result = _productService.GetPopulerProducts();
-            if (result.Success)
+            var result=_productService.GetSideCategoryForProduct(categoryId, sideCategoryId);
+            if (result!=null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getcategoryinpopulerproduct")]
+        public IActionResult GetCategoryInPopulerProduct(int categoryId)
+        {
+            var result = _productService.GetCategoryInPopulerProduct(categoryId);
+            if(result!=null)
             {
                 return Ok(result);
             }

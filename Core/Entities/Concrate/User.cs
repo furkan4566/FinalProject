@@ -13,5 +13,10 @@ namespace Core.Entities.Concrate
         public byte[] PasswordSalt { get; set; }
         public byte[] PasswordHash { get; set; }
         public bool Status { get; set; }
+        public string Number{ get; set; }
+        public string Address { get; set; }
+        public int Gender{ get; set; }
+        public DateTime DateOfBirth{ get; set; }
+
     }
 }

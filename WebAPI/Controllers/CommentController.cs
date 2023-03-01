@@ -29,9 +29,29 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult GetById(Comment comment)
+        public IActionResult Add(Comment comment)
         {
             var result = _commentService.Add(comment);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getproductcomment")]
+        public IActionResult GetProductComment(int productId)
+        {
+            var result = _commentService.GetProductComment(productId);
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+        [HttpGet("getusercomment")]
+        public IActionResult GetUserComment(int userId)
+        {
+            var result = _commentService.GetUserComment(userId);
             if (result != null)
             {
                 return Ok(result);

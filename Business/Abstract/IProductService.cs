@@ -19,7 +19,8 @@ namespace Business.Abstract
         IResult Update(Product product);
         IResult Delete(int productId);
         IResult AddTransactionTest(Product product);
-        IDataResult<List<Product>> GetPopCategoryFirstTen(int categoryId);
-        IDataResult<List<Product>> GetPopulerProducts();
+        IDataResult<List<Product>> GetPopProductFirstTen();
+        IDataResult<List<Product>> GetSideCategoryForProduct(int categoryId, int sideCategoryId);
+        IDataResult<Product> GetCategoryInPopulerProduct(int categoryId);
     }
 }

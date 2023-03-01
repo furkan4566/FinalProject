@@ -23,7 +23,7 @@ namespace WebAPI.Controllers
             var result = _sideCategory.GetSideCategory(categoryId);
             if (result.Success)
             {
-                return Ok(result.Data);
+                return Ok(result);
             }
             return BadRequest(result);
         }

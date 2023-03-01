@@ -1,6 +1,8 @@
 ﻿using Core.Entities;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Entities.Concrate
@@ -9,9 +11,10 @@ namespace Entities.Concrate
     {
         public int Id { get; set; }
         public int ProductId { get; set; }
+        public int UserId { get; set; }
         public string Commentt { get; set; }
         public string Image { get; set; }
         public int Like { get; set; }
-        public int Dislike { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
