@@ -13,5 +13,6 @@ namespace DataAccess.Abstract
         List<ProductDetailDto> GetProductDetails();
         List<Product> GetPopProductFirstTen();
         Product GetCategoryInPopulerProduct(int categoryId);
+        List<Product> GetAllProductForName(string searchName);
     }
 }

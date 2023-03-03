@@ -39,5 +39,16 @@ namespace DataAccess.Concrate.EntityFramework
                 return result.ToList();
             }
         }
+
+        public List<Product> GetAllProductForName(string searchName)
+        {
+            using (var context=new NorthwindContext())
+            {
+                var result= from p in context.Products
+                            where p.ProductName.Contains(searchName)
+                            select p;
+                return result.ToList();
+            }
+        }
     }
 }

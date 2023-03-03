@@ -157,5 +157,10 @@ namespace Business.Concrate
             }
             return new SuccessDataResult<List<Product>>(commonProducts);
         }
+
+        public IDataResult<List<Product>> GetAllProductForName(string searchName)
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetAllProductForName(searchName));
+        }
     }
 }

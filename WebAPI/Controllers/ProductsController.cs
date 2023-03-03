@@ -130,5 +130,15 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getallproductforname")]
+        public IActionResult GetAllProductForName(string searchName)
+        {
+            var result = _productService.GetAllProductForName(searchName);
+            if(result!=null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }

@@ -22,5 +22,6 @@ namespace Business.Abstract
         IDataResult<List<Product>> GetPopProductFirstTen();
         IDataResult<List<Product>> GetSideCategoryForProduct(int categoryId, int sideCategoryId);
         IDataResult<Product> GetCategoryInPopulerProduct(int categoryId);
+        IDataResult<List<Product>> GetAllProductForName(string searchName);
     }
 }
