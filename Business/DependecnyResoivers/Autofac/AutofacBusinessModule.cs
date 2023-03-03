@@ -63,12 +63,13 @@ namespace Business.DependecnyResoivers.Autofac
             builder.RegisterType<BrandManager>().As<IBrandService>();
             builder.RegisterType<EfBrandDal>().As<IBrandDal>();
 
+            builder.RegisterType<FavoriteManager>().As<IFavoriteService>();
+            builder.RegisterType<EfFavoriteDal>().As<IFavoriteDal>();
 
             builder.RegisterType<EfCityDal>().As<ICityDal>();
             builder.RegisterType<CityManager>().As<ICityService>();
             builder.RegisterType<EfDistrictDal>().As<IDistrictDal>();
             builder.RegisterType<DistrictManager>().As<IDistrictService>();
-            builder.RegisterType<EfFavoriteDal>().As<IFavoriteDal>();
 
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
