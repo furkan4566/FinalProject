@@ -93,6 +93,10 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<Product>(_productDal.GetCategoryInPopulerProduct(categoryId));
         }
+        public IDataResult<List<Product>> GetVeryReviewsProduct()
+        {
+            return new SuccessDataResult<List<Product>>(_productDal.GetVeryReviewsProduct());
+        }
         //[ValidationAspect(typeof(ProductValidator))]
         //[CacheRemoveAspect("IProductService.Get")]
         public IResult Update(Product product)

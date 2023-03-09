@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Entities.Concrate;
 using DataAccess.Abstract;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -97,6 +98,27 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(result.Massage);
+        }
+        [HttpPost("update")]
+        public IActionResult Update(User user,int id)
+        {
+            var result = _userService.GetById(id);
+            result.Data.FirstName=user.FirstName;
+            result.Data.LastName=user.LastName;
+            if(user.Email!=null)
+            {
+                result.Data.Email = user.Email;
+            }
+            result.Data.Address=user.Address;
+            result.Data.DateOfBirth = user.DateOfBirth;
+            result.Data.Number = user.Number;
+            result.Data.Gender = user.Gender;
+            var update=_userService.Update(result.Data);
+            if(update != null)
+            {
+                return Ok(update);
+            }
+            return BadRequest(update);
         }
     }
 }

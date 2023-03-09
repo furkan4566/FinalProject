@@ -50,5 +50,14 @@ namespace DataAccess.Concrate.EntityFramework
                 return result.ToList();
             }
         }
+
+        public List<Product> GetVeryReviewsProduct()
+        {
+            using (var context = new NorthwindContext())
+            {
+                var result = context.Products.OrderByDescending(i => i.Reviews).Take(6);
+                return result.ToList();
+            }
+        }
     }
 }

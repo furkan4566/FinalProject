@@ -18,6 +18,9 @@ namespace Entities.Concrate
         public int SellCount{ get; set; }
         public double StartCount{ get; set; }
         public string ImagePath { get; set; }
+        public bool FreeCargo{ get; set; }
+        public bool FastCargo { get; set; }
+        public int Discount { get; set; }
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Product))

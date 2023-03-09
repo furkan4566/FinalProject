@@ -48,5 +48,12 @@ namespace Business.Concrate
         {
             return new SuccessDataResult<List<OperationClaim>>(_userDal.GetUserClaims(userId));
         }
+
+        public IResult Update(User user)
+        {
+
+            _userDal.Update(user);
+            return new SuccessResult();
+        }
     }
 }
