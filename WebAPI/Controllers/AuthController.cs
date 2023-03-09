@@ -1,5 +1,6 @@
 ﻿    using Business.Abstract;
 using Business.Constans;
+using Core.Entities.Concrate;
 using Entities.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -55,7 +56,28 @@ namespace WebAPI.Controllers
                 return Ok(result);
             } 
 
-            return BadRequest(result.Massage);
+            return BadRequest(result);
+        }
+        [HttpPost("changepassword")]
+         public ActionResult ChangePassword(UserForRegisterDto userForRegisterDto,int id)
+        {
+            var result = _authService.ChangePassword(userForRegisterDto.Password,id);
+            var resultToken = _authService.CreateAccessToken(result.Data);
+            if (resultToken.Success)
+            {
+                return Ok(resultToken);
+            }
+            return BadRequest(resultToken);
+        }
+        [HttpPost("verifypassword")]
+        public ActionResult VerifyPassword(UserForLoginDto userForLoginDto)
+        {
+            var result = _authService.VerifyPassword(userForLoginDto);
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
         }
     }
 }

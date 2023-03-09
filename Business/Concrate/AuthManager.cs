@@ -38,7 +38,16 @@ namespace Business.Concrate
             _userService.Add(user);
             return new SuccessDataResult<User>(user, Messages.UserRegistered);
         }
-
+        public IDataResult<User> ChangePassword(string password,int id)
+        {
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(password, out passwordHash, out passwordSalt);
+            var result = _userService.GetById(id);
+            result.Data.PasswordHash = passwordHash;
+            result.Data.PasswordSalt = passwordSalt;
+            _userService.Update(result.Data);
+            return new SuccessDataResult<User>(result.Data, Messages.UserRegistered);
+        }
         public IDataResult<User> Login(UserForLoginDto userForLoginDto)
         {
             var userToCheck = _userService.GetByMail(userForLoginDto.Email);
@@ -53,7 +62,15 @@ namespace Business.Concrate
             }
             return new SuccessDataResult<User>(userToCheck.Data,"başarılı giriş");
         }
-
+        public IDataResult<User> VerifyPassword(UserForLoginDto userForLoginDto)
+        {
+            var userToCheck = _userService.GetByMail(userForLoginDto.Email);
+            if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.Data.PasswordHash, userToCheck.Data.PasswordSalt))
+            {
+                return new ErrorDataResult<User>(Messages.PasswordError);
+            }
+            return new SuccessDataResult<User>(userToCheck.Data, "Başarılı Giriş");
+        }
         public IResult UserExists(string email)
         {
             if (_userService.GetByMail(email).Data!=null)

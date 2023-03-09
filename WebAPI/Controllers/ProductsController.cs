@@ -140,5 +140,15 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpGet("getveryreviewsproduct")]
+        public IActionResult GetVeryReviewsProduct()
+        {
+            var result = _productService.GetVeryReviewsProduct();
+            if (result != null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
