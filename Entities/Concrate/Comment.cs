@@ -16,5 +16,6 @@ namespace Entities.Concrate
         public string Image { get; set; }
         public int Like { get; set; }
         public DateTime DateTime { get; set; }
+        public int StartCount { get; set; }
     }
 }

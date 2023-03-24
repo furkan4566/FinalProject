@@ -24,11 +24,12 @@ namespace DataAccess.Concrate.EntityFramework
         public DbSet<District> districts { get; set; }
         public DbSet<ProductImage> ProductImage{ get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<UserFavorite> favorites { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
         public DbSet<SideCategory> SideCategories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductProperty> ProductProperty { get; set; }
         public DbSet<OperationClaim> OperationClaims { get; set; }
-        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Order> Orders{ get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<UnderCategory> UnderCategories { get; set; }
         public DbSet<UserOperationClaim> UserOperationClaims { get; set; }

@@ -24,7 +24,8 @@ namespace Business.Concrate
 
         public IResult Delete(int commentId)
         {
-            throw new NotImplementedException();
+            _commentDal.Delete(commentId);
+            return new SuccessResult();
         }
 
         public IDataResult<List<Comment>> GetAll()

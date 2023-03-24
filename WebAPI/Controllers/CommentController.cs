@@ -38,6 +38,16 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpDelete("delete")]
+        public IActionResult Delete(int commentId)
+        {
+            var result = _commentService.Delete(commentId);
+            if(result!=null)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
         [HttpGet("getproductcomment")]
         public IActionResult GetProductComment(int productId)
         {

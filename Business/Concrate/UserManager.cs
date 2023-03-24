@@ -6,6 +6,9 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Net.Mail;
+using System.Runtime.ConstrainedExecution;
+using System.Net;
 
 namespace Business.Concrate
 {
@@ -54,6 +57,23 @@ namespace Business.Concrate
 
             _userDal.Update(user);
             return new SuccessResult();
+        }
+        public void SendMailOfChangePassword(string email)
+        {
+            SmtpClient smtpClient = new SmtpClient();
+            smtpClient.Port = 587;
+            smtpClient.Host = "pop3.live.com";
+            smtpClient.EnableSsl = true;
+            Random random = new Random();
+            int restCode = random.Next(100000, 999999);
+            smtpClient.Credentials = new NetworkCredential("yamyam5863@hotmail.com", "15072002furkan");
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.From = new MailAddress("yamyam5863@hotmail.com", "Furkan Can");
+            mailMessage.To.Add("furkan_can45@hotmail.com");
+            mailMessage.Subject = "Şifre sıfırlama kodunuz";
+            mailMessage.IsBodyHtml = true;
+            mailMessage.Body = "Şifre sıfırlama kodunuz=" + restCode.ToString(); 
+            smtpClient.Send(mailMessage);
         }
     }
 }

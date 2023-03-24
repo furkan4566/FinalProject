@@ -6,8 +6,7 @@ using System.Text;
 
 namespace DataAccess.Abstract
 {
-    public interface IFavoriteDal:IEntityRepository<Favorite>
+    public interface IProductPropertyDal : IEntityRepository<ProductProperty>
     {
-        public List<Favorite> GetByUserId (int userId);
     }
 }

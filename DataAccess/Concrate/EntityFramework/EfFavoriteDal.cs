@@ -8,13 +8,13 @@ using System.Text;
 
 namespace DataAccess.Concrate.EntityFramework
 {
-    public class EfFavoriteDal : EfEntityRepositoryBase<UserFavorite, NorthwindContext>, IFavoriteDal
+    public class EfFavoriteDal : EfEntityRepositoryBase<Favorite, NorthwindContext>, IFavoriteDal
     {
-        public List<UserFavorite> GetByUserId(int userId)
+        public List<Favorite> GetByUserId(int userId)
         {
             using (var context=new NorthwindContext())
             {
-                var result = context.favorites.Where(i => i.UserId == userId);
+                var result = context.Favorites.Where(i => i.UserId == userId);
                 return result.ToList();
             }
         }

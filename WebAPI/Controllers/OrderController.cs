@@ -6,17 +6,17 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class OrderDetailsController : ControllerBase
+    public class OrderController : ControllerBase
     {
-        IOrderDetailsService _orderDetailsService;
-        public OrderDetailsController(IOrderDetailsService orderDetailsService)
+        IOrderService _orderService;
+        public OrderController(IOrderService orderService)
         {
-            _orderDetailsService = orderDetailsService;
+            _orderService = orderService;
         }
         [HttpGet("getall")]
         public IActionResult GetAll()
         {
-            var result = _orderDetailsService.GetAll();
+            var result = _orderService.GetAll();
             if (result != null)
             {
                 return Ok(result);
@@ -26,7 +26,7 @@ namespace WebAPI.Controllers
         [HttpGet("getuserorders")]
         public IActionResult GetUserOrders(int userId)
         {
-            var result = _orderDetailsService.GetUserOrders(userId);
+            var result = _orderService.GetUserOrders(userId);
             if (result != null)
             {
                 return Ok(result);

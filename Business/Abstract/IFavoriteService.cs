@@ -8,12 +8,12 @@ namespace Business.Abstract
 {
     public interface IFavoriteService
     {
-        IDataResult<UserFavorite> GetById(int userFavoriteId);
-        IDataResult<List<UserFavorite>> GetAll();
-        IResult Add(UserFavorite userFavorite);
-        IResult Update(UserFavorite userFavorite);
+        IDataResult<Favorite> GetById(int userFavoriteId);
+        IDataResult<List<Favorite>> GetAll();
+        IResult Add(Favorite userFavorite);
+        IResult Update(Favorite userFavorite);
         IResult Delete(int userFavoriteId);
-        IDataResult<List<UserFavorite>> GetByUserId(int userId);
+        IDataResult<List<Favorite>> GetByUserId(int userId);
 
     }
 }
