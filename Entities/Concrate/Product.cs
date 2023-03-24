@@ -9,6 +9,7 @@ namespace Entities.Concrate
     {
         public int ProductId { get; set; }
         public int CategoryId { get; set; }
+        public int BrandId { get; set; } 
         public int SideCategoryId { get; set; }
         public string ProductName { get; set; }
         public string QuantityPerUnit { get; set; }
@@ -21,6 +22,7 @@ namespace Entities.Concrate
         public bool FreeCargo{ get; set; }
         public bool FastCargo { get; set; }
         public int Discount { get; set; }
+        public string Seller { get; set; }
         public override bool Equals(object obj)
         {
             if (obj == null || !(obj is Product))

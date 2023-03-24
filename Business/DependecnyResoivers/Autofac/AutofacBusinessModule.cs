@@ -24,6 +24,9 @@ namespace Business.DependecnyResoivers.Autofac
             builder.RegisterType<ProductManager>().As<IProductService>().SingleInstance();
             builder.RegisterType<EfProductDal>().As<IProductDal>().SingleInstance();
 
+            builder.RegisterType<ProductPropertyManager>().As<IProductPropertyService>().SingleInstance();
+            builder.RegisterType<EfProductPropertyDal>().As<IProductPropertyDal>().SingleInstance();
+
             builder.RegisterType<CategoryManager>().As<ICategoryService>().SingleInstance();
             builder.RegisterType<EfCategoryDal>().As<ICategoryDal>().SingleInstance();
 
@@ -42,8 +45,8 @@ namespace Business.DependecnyResoivers.Autofac
             builder.RegisterType<EmployeeManager>().As<IEmployeeService>();
             builder.RegisterType<EfEmployeeDal>().As<IEmployeeDal>();
 
-            builder.RegisterType<OrderDetailsManager>().As<IOrderDetailsService>();
-            builder.RegisterType<EfOrderDetailsDal>().As<IOrderDetailsDal>();
+            builder.RegisterType<OrderManager>().As<IOrderService>();
+            builder.RegisterType<EfOrderDal>().As<IOrderDal>();
 
             builder.RegisterType<ProductImageManager>().As<IProductImageService>();
             builder.RegisterType<EfProductImageDal>().As<IProductImgDal>();

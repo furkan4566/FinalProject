@@ -36,7 +36,7 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpPost("add")]
-        public IActionResult Add(UserFavorite userFavorite)
+        public IActionResult Add(Favorite userFavorite)
         {
             var result = _favoriteService.Add(userFavorite);
             if (result.Success)

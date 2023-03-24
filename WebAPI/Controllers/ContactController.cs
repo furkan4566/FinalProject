@@ -11,11 +11,11 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactsController : ControllerBase
+    public class ContactController : ControllerBase
     {
         IContactService _contactService;
 
-        public ContactsController(IContactService contactService)
+        public ContactController(IContactService contactService)
         {
             _contactService = contactService;
         }
@@ -45,9 +45,9 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
         [HttpDelete("delete")]
-        public IActionResult Delete(int id)
+        public IActionResult Delete(int contactId)
         {
-            var result = _contactService.Delete(id);
+            var result = _contactService.Delete(contactId);
             if (result.Success)
             {
                 return Ok(result);
@@ -64,10 +64,10 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
-        [HttpGet("getbyid")]
-        public IActionResult GetById(int contactId)
+        [HttpGet("getuserid")]
+        public IActionResult GetById(int userId)
         {
-            var result = _contactService.GetById(contactId);
+            var result = _contactService.GetUserById(userId);
             if (result.Success)
             {
                 return Ok(result);

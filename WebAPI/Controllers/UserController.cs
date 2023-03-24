@@ -120,5 +120,11 @@ namespace WebAPI.Controllers
             }
             return BadRequest(update);
         }
+        [HttpPost("sendmailofchangepassword")]
+        public IActionResult SendMailOfChangePassword(string email)
+        {
+            _userService.SendMailOfChangePassword("furkan_can45@hotmail.com");
+            return Ok();
+        }
     }
 }

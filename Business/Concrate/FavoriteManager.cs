@@ -15,8 +15,13 @@ namespace Business.Concrate
         {
             _favoriteDal= favoriteDal;
         }
-        public IResult Add(UserFavorite userFavorite)
+        public IResult Add(Favorite userFavorite)
         {
+            var result=_favoriteDal.Get(i => i.ProductId == userFavorite.ProductId);
+            if(result!=null)
+            {
+                return new ErrorResult();
+            }
             _favoriteDal.Add(userFavorite);
             return new SuccessResult("Ekleme Başarılı");
         }
@@ -27,22 +32,22 @@ namespace Business.Concrate
             return new SuccessResult("Silme işlemi başarılı");
         }
 
-        public IDataResult<List<UserFavorite>> GetAll()
+        public IDataResult<List<Favorite>> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<UserFavorite> GetById(int userFavoriteId)
+        public IDataResult<Favorite> GetById(int userFavoriteId)
         {
             throw new NotImplementedException();
         }
 
-        public IDataResult<List<UserFavorite>> GetByUserId(int userId)
+        public IDataResult<List<Favorite>> GetByUserId(int userId)
         {
-            return new SuccessDataResult<List<UserFavorite>>(_favoriteDal.GetByUserId(userId));
+            return new SuccessDataResult<List<Favorite>>(_favoriteDal.GetByUserId(userId));
         }
 
-        public IResult Update(UserFavorite userFavorite)
+        public IResult Update(Favorite userFavorite)
         {
             throw new NotImplementedException();
         }

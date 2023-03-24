@@ -13,7 +13,7 @@ namespace WebAPI.Controllers
         {
             _brandService = brandService;
         }
-        [HttpGet("getallbarndid")]
+        [HttpGet("getallbrandid")]
         public IActionResult GetAllBrandId(int brandId)
         {
             var result=_brandService.GetAllBrandId(brandId);

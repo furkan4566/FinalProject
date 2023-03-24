@@ -16,5 +16,7 @@ namespace Business.Abstract
         IDataResult<User> GetByMail(string email);
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetById(int userId);
+
+        void SendMailOfChangePassword(string email);
     }
 }

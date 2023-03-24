@@ -37,6 +37,11 @@ namespace Business.Concrate
             return new SuccessDataResult<Contact>(_contactDal.Get(i=>i.Id==contactId));
         }
 
+        public IDataResult<List<Contact>> GetUserById(int userId)
+        {
+            return new SuccessDataResult<List<Contact>>(_contactDal.GetAll(i => i.UserId == userId));
+        }
+
         public IResult Update(Contact contact)
         {
             _contactDal.Update(contact);
